@@ -1,4 +1,4 @@
-const envFile = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env';
+const envFile = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : __basedir+'/.env';
 console.log('envFile path', envFile);
 const dotenv = require('dotenv').config({ path: envFile });
 

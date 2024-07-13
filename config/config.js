@@ -1,4 +1,4 @@
-const packageJson = require('../../package.json');
+const packageJson = require(__basedir+'/package.json');
 const dotenv = require('./dotenv');
 const packageProps = process.env.PACKAGE_PROPERTIES;
 
