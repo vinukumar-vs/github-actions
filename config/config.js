@@ -7,7 +7,7 @@ Object.prototype.reduce = function (obj, props) {
   let reducedObj = {};
   Object.keys(obj).reduce((prop, num) => {
     // console.log(prop, num);
-    if (props.indexOf(num) > -1) {
+    if (props?.indexOf(num) > -1) {
       Object.assign(reducedObj, { [num]: obj[num] });
     }
 
