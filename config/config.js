@@ -1,6 +1,6 @@
 const packageJson = require(__basedir+'/package.json');
 const dotenv = require('./dotenv');
-const packageProps = process.env.PACKAGE_PROPERTIES;
+const packageProps = process.env.PACKAGE_PROPERTIES || "name, version";
 
 Object.prototype.reduce = function (obj, props) {
   // console.log('props', props);
