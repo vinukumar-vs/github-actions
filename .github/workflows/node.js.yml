@@ -25,7 +25,7 @@ jobs:
 
     - name: Check env 
       run: |
-        cat ${{ github.env }}
+        cat ${{ vars }}
 
     - name: Set environment variables
       id: set_env
