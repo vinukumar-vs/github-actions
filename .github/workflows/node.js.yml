@@ -27,23 +27,21 @@ jobs:
       run: |
         echo "PORT: ${{ vars.PORT }}"
 
-    # - name: Set environment variables
-    #   id: set_env
-    #   uses: SpicyPizza/create-envfile@v2.0
-    #   with:
-    #     envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-    #     envkey_DEBUG: false
-    #     envkey_PORT: ${{ vars.PORT }}
-    #     envkey_LOG_LEVEL: ${{ vars.LOG_LEVEL }}
-    #     file_name: .env
-    #     sort_keys: true
+    - name: Set environment variables
+      id: set_env
+      uses: SpicyPizza/create-envfile@v2.0
+      with:
+        envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        envkey_PORT: ${{ vars.PORT }}
+        envkey_LOG_LEVEL: ${{ vars.LOG_LEVEL }}
+        file_name: .env
+        sort_keys: true
 
-    # - name: Verify envfile
-    #   shell: bash
-    #   run: |
-    #     echo "Actual:"
-    #     cat .env
-    #     exit 1
+    - name: Verify envfile
+      shell: bash
+      run: |
+        echo "Updated .env values:"
+        cat .env
   
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
