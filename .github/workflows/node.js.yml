@@ -13,6 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: production
 
     strategy:
       matrix:
@@ -22,26 +23,33 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set environment variables
-      id: set_env
-      uses: SpicyPizza/create-envfile@v2.0
-      with:
-        envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        envkey_DEBUG: false
-        envkey_PORT: ${{ vars.PORT }}
-        envkey_LOG_LEVEL: ${{ vars.LOG_LEVEL }}
-        file_name: .env
-        sort_keys: true
-
-    - name: Verify envfile
-      shell: bash
+    - name: Check env 
       run: |
-        echo "Actual:"
-        cat .env
-        exit 1
+        echo "PORT: ${{ vars.PORT }}"
+
+    # - name: Set environment variables
+    #   id: set_env
+    #   uses: SpicyPizza/create-envfile@v2.0
+    #   with:
+    #     envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+    #     envkey_DEBUG: false
+    #     envkey_PORT: ${{ vars.PORT }}
+    #     envkey_LOG_LEVEL: ${{ vars.LOG_LEVEL }}
+    #     file_name: .env
+    #     sort_keys: true
+
+    # - name: Verify envfile
+    #   shell: bash
+    #   run: |
+    #     echo "Actual:"
+    #     cat .env
+    #     exit 1
   
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
+      env: 
+        PORT: ${{ vars.PORT }}
+        LOG_LEVEL: ${{ vars.LOG_LEVEL }}
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
