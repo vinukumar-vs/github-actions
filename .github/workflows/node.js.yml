@@ -21,11 +21,41 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
+    - name: Set environment variables
+      id: set_env
+      uses: SpicyPizza/create-envfile@v2.0
+      with:
+        envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        envkey_DEBUG: false
+        envkey_PORT: ${{ vars.PORT }}
+        envkey_LOG_LEVEL: ${{ vars.LOG_LEVEL }}
+        file_name: .env
+        sort_keys: true
+
+    - name: Verify envfile
+        shell: bash
+        run: |
+          TEST=$(cat <<-END
+          DEBUG=false
+          SECRET_KEY=password123
+          SOME_API_KEY=123456abcdef
+          END
+          )
+          if [ "$TEST" != "$(cat .env)" ]
+          then
+            echo "Actual:"
+            cat .env
+            echo "Expected:"
+            echo "$TEST"
+            exit 1
+          fi
+    
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
     - run: yarn
-    - run: yarn build --if-present
+    - run: yarn run start
     # - run: npm test --if-present
