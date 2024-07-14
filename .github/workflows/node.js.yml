@@ -25,7 +25,7 @@ jobs:
 
     - name: Check env 
       run: |
-        cat ${{ vars }}
+        echo ${{ vars }}
 
     - name: Set environment variables
       id: set_env
