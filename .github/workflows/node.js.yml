@@ -25,7 +25,7 @@ jobs:
 
     - name: Check env 
       run: |
-        echo ${{ vars }}
+        echo Port: ${{ vars.PORT }}
 
     - name: Set environment variables
       id: set_env
@@ -34,6 +34,7 @@ jobs:
         envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
         envkey_PORT: ${{ vars.PORT }}
         envkey_LOG_LEVEL: ${{ vars.LOG_LEVEL }}
+        envkey_REQUIRED_PROPERTIES: "PORT, LOG_LEVEL"
         file_name: .env
         sort_keys: true
 
